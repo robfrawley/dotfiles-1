@@ -40,14 +40,14 @@ function g        ; git $argv ; end
 function grep     ; command grep --color=auto $argv ; end
 function httpdump ; sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*" ; end
 function ip       ; curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g' ; end
-function localip  ; ipconfig getifaddr en1 ; end
-function mp       ; mvim $argv ; end
-function mutt     ; command bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt' $argv; end
+function localip  ; ipconfig getifaddr en0 ; end
+function lookbusy ; cat /dev/urandom | hexdump -C | grep --color "ca fe" ; end
+function mp       ; nvim $argv ; end
 function rkt      ; racket -il xrepl $argv ; end
 function tmux     ; command tmux -2 $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
-function view     ; vim -R $argv ; end
-function vp       ; vim $argv ; end
+function view     ; nvim -R $argv ; end
+function vp       ; nvim $argv ; end
 
 # Completions
 function make_completion --argument-names alias command
@@ -64,8 +64,8 @@ end
 make_completion b 'bundle exec'
 make_completion f 'foreman run'
 make_completion g 'git'
-make_completion mp 'vim -p'
-make_completion vp 'vim -p'
+make_completion mp 'vim'
+make_completion vp 'vim'
 
 # rbenv
 if test -d $RBENV_ROOT
@@ -73,6 +73,3 @@ if test -d $RBENV_ROOT
   set PATH $RBENV_ROOT/shims $PATH
   rbenv rehash >/dev/null ^&1
 end
-
-# nix
-. nix.fish
